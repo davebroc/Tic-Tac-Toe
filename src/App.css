@@ -1,11 +1,20 @@
 :root {
-  --board-width: 60%;
   --square-size: 10rem;
   --square-font-size: 7rem;
   --board-background: rgb(47, 47, 65);
   --text-color: aliceblue;
 }
 
+@media only screen and (max-width: 767px) {
+  :root {
+    --square-size: 5rem;
+    --square-font-size: 3rem;
+  }
+
+  h1 {
+    font-size: 2rem !important;
+  }
+}
 
 .App {
   text-align: center;
