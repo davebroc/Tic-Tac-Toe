@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import Board from './components/Board';
+import Game from './components/Game';
 
 const App: React.FC = () => (
   <div className="App">
     <h1>Tic-Tac-Toe</h1>
-    <Board />
+    <Game />
   </div>
 );
 
