@@ -1,67 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Square, SquareValue } from "./Square";
 import Agent from "./Agent";
+import { agentSymbol, humanSymbol } from "../util/Settings";
+import calculateWinner from "../util/CalculateWinner";
 
 const Game: React.FC = () => {
     const [isHumanTurn, setIsHumanTurn] = useState(true);
     const [status, setStatus] = useState<string>("");
     const [squares, setSquares] = useState<Array<SquareValue>>(Array(9).fill(null));
 
-    const calculateWinner = (squares: SquareValue[]): SquareValue => {
-        const lines = [
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-            [0, 3, 6],
-            [1, 4, 7],
-            [2, 5, 8],
-            [0, 4, 8],
-            [2, 4, 6],
-        ];
-
-        for (const [a, b, c] of lines) {
-            if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-                return squares[a];
-            }
-        }
-        return null;
-    };
-
     const winner = calculateWinner(squares);
     const draw = squares.every((square) => square !== null);
 
-    useEffect(() => {
-        if (winner) {
-            setStatus(`Winner: ${winner}`);
-        } else if (draw) {
-            setStatus("It's a draw!");
-        } else {
-            setStatus(`Next player: ${isHumanTurn ? "X" : "O"}`);
-        }
-    }, [winner, draw, isHumanTurn]);
+    React.useEffect(() => {
+        const statusText = winner ? `Winner: ${winner}` : draw ? "It's a draw!" : `Next player: ${isHumanTurn ? humanSymbol : agentSymbol}`
 
+        setStatus(statusText)
+    }, [squares])
 
-    const handleClick = (i: number): void => {
-        if (calculateWinner(squares) || squares[i]) {
-            return;
-        }
+    const handleMove = (i: number, color: SquareValue): void => {
+        if (calculateWinner(squares) || squares[i])
+            return
 
         const newSquares = [...squares];
-        newSquares[i] = isHumanTurn ? "X" : "O";
+        newSquares[i] = color
         setSquares(newSquares);
-        setIsHumanTurn(!isHumanTurn);
+
+        setIsHumanTurn(!isHumanTurn)
     };
 
     const renderSquare = (i: number): JSX.Element => (
-        <Square value={squares[i]} onClick={() => handleClick(i)} />
+        <Square value={squares[i]} onClick={() => handleMove(i, humanSymbol)} />
     );
 
     return (
         <main>
             <Agent
                 isHumanTurn={isHumanTurn}
-                setIsHumanTurn={setIsHumanTurn}
-                calculateWinner={calculateWinner}
+                handleMove={handleMove}
                 squares={squares}
             />
             <section className="Game">

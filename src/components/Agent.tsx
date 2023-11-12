@@ -4,23 +4,23 @@ import { SquareValue } from './Square';
 
 interface AgentProps {
     isHumanTurn: boolean;
-    setIsHumanTurn: React.Dispatch<React.SetStateAction<boolean>>;
-    calculateWinner: (squares: SquareValue[]) => SquareValue;
+    handleMove: (i: number, color: SquareValue) => void;
     squares: SquareValue[];
 }
 
 interface Agent {
     move: () => void,
-    // getBestMove: () => string,
 }
 
 const AgentComponent: React.FC<AgentProps> = (props) => {
     const agent = new MinmaxAgent(props);
 
     useEffect(() => {
-        if (!props.isHumanTurn) {
-            agent.move();
-        }
+        if (!props.isHumanTurn)
+            setTimeout(() => {
+                agent.move();
+            }, 400)
+
     }, [props.isHumanTurn]);
 
     return null;
