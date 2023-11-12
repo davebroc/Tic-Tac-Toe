@@ -18,7 +18,7 @@ const Game: React.FC = () => {
             ? `Winner: ${winner}`
             : draw
                 ? "It's a draw!"
-                : `Next player: ${isHumanTurn ? humanSymbol : agentSymbol}`;
+                : `${isHumanTurn ? humanSymbol : agentSymbol}'s Turn`;
 
         setStatus(statusText);
 

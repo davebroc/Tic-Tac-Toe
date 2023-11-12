@@ -1,3 +1,2 @@
-# 1 hour 26 minutes speed run
-
-Very rough
+# 1 hour 26 minutes initial speed run
+1 additional hour of touchups.
