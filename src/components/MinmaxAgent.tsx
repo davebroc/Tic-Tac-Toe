@@ -29,7 +29,7 @@ class MinimaxAgent implements Agent {
     }
 
     private isGameOver(): boolean {
-        return calculateWinner(this.squares) !== null;
+        return calculateWinner(this.squares)[0] !== null;
     }
 
     private isDraw(): boolean {
@@ -58,7 +58,7 @@ class MinimaxAgent implements Agent {
     }
 
     private minimax(depth: number, maximizingPlayer: boolean): number {
-        const winner = calculateWinner(this.squares);
+        const winner = calculateWinner(this.squares)[0];
 
         if (winner === humanSymbol) {
             return depth - 10; // win, prioritize winning sooner

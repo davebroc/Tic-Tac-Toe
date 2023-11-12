@@ -1,6 +1,6 @@
 import { SquareValue } from "../components/Square";
 
-const calculateWinner = (squares: SquareValue[]): SquareValue => {
+export default function calculateWinner(squares: SquareValue[]): [SquareValue | null, number[]] {
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
@@ -14,11 +14,9 @@ const calculateWinner = (squares: SquareValue[]): SquareValue => {
 
     for (const [a, b, c] of lines) {
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return squares[a];
+            return [squares[a], [a, b, c]]; // Return the winner and the winning line
         }
     }
-    return null;
-};
 
-
-export default calculateWinner
+    return [null, []]; // If no winner, return null and an empty array
+}
